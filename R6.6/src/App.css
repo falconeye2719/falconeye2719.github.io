@@ -1,0 +1,81 @@
+/* App.css */
+/* 既存のスタイルはそのまま */
+.App {
+  text-align: center;
+}
+
+body {
+    font-family: 'Arial', sans-serif; /* アプリケーション全体のフォント */
+}
+
+/* アプリケーション全体で input, select, textarea, button のフォントを body から継承させる */
+/* これにより、ブラウザのデフォルトスタイルによるフォントのずれを防ぎます */
+input, select, textarea, button {
+    font-family: inherit;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  margin-bottom: 20px;
+}
+.app-version {
+    font-size: 0.5em; /* 親要素（h1）のフォントサイズの70%に設定 */
+    color: #666; /* バージョン部分の色を少し薄くする（任意） */
+    /* もしタイトルと縦位置を細かく調整したい場合 */
+    /* position: relative; */
+    /* top: -0.2em; */
+}
+
+main {
+  padding: 20px;
+}
+
+.feedback-message {
+  background-color: lightgreen;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.warning-message {
+  color: orange;
+  margin-top: 10px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.loading-cursor,
+.loading-cursor * {
+  cursor: wait !important;
+}
+
+/* ★ 追加するスタイル ★ */
+/*
+main > div > div label,
+main > div > div input,
+main > div > div button {
+  vertical-align: middle;
+}
+*/
+
+/* input[type="time"] の共通スタイルを App.css に定義し、全体に影響させる */
+input[type="time"] {
+    /* PaceInput.css や他の場所で個別に幅などを設定している場合は、そちらが優先されます */
+    /* ここではフォント関連と縦方向のパディングのみ調整します */
+    font-family: inherit; /* bodyからフォントを継承 */
+    padding: 1px 2px; /* 縦方向のパディングを調整して高さを詰める */
+    box-sizing: border-box; /* パディングとボーダーをwidthに含める */
+    font-size: 0.9rem; /* フォントサイズも統一 */
+}

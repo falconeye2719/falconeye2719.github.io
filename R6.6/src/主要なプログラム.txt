@@ -11,10 +11,7 @@ import './App.css';
 import { PuffLoader } from 'react-spinners';
 import { smoothElevation } from './utils/elevationUtils';
 
-import HelpModal from './components/HelpModal';
-import Tooltip from './components/Tooltip';
-
-const APP_VERSION = "6.7"; // 例: バージョン番号をここに記述
+const APP_VERSION = "6.6"; // 例: バージョン番号をここに記述
 
 const formatTime = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
@@ -70,8 +67,7 @@ function App() {
 
     // ファイル選択時にローディングを開始
     const handleFileSelected = useCallback(() => {
-
-        //        setIsGPXLoading(true);
+//        setIsGPXLoading(true);
         setGpxFileLoaded(false); // ★ ファイル選択時に false に設定 ★
         setPointsData([]);
         setSimulationResult([]);
@@ -283,15 +279,16 @@ function App() {
                         newPointsData[newPointsData.length - 1].区分 = 'FINISH';
                     }
                 }
-                // ★ gpxFileLoaded が true になってから handleApplyManualPoints を呼び出す ★
-                if (gpxFileLoaded) {
-                    handleApplyManualPoints();
-                }
 
                 setPointsData(newPointsData);
                 setGpxFileLoaded(true); // ★ GPXデータ処理完了後に true に設定 ★
                 setIsGPXLoading(false); // GPXデータの処理が完了したら、ローディングを終了させる
                 
+                // ★ gpxFileLoaded が true になってから handleApplyManualPoints を呼び出す ★
+                if (gpxFileLoaded) {
+                    handleApplyManualPoints();
+console.log("handleApplyManualPoints を呼び出します");
+                }
             } catch (error) {
                 console.error("GPXファイルの解析エラー:", error);
                 alert("GPXファイルの解析に失敗しました。");
@@ -369,26 +366,11 @@ function App() {
         });
     }, []);
 
-
-    //applyManualPointsToPointsData
-    // ✅ ユーザーが入力した エイド情報 (currentManualPoints) を pointsData に追加 する
-    // ✅ 「距離」に基づいて、エイド情報を適切なポイントに適用 する
-    // ✅ START (スタート地点) と FINISH (ゴール地点) を設定 する
-    // ✅ リザルトテーブルでエイド情報が正しく表示できるようにする
     const applyManualPointsToPointsData = useCallback((currentPointsData, currentManualPoints) => {
-
-        //currentPointsData のコピー (newPointsData) を作成し、元のデータを変更しないようにする。
         const newPointsData = currentPointsData.map(point => ({ ...point }));
-
-        //currentManualPoints の各エイド情報を 1つずつ処理
-        //  ✅ distance を 数値 (float) に変換 し、「エイドの距離」を取得
-        //  ✅ distance が 数値でない場合 (エラー) はスキップ
         currentManualPoints.forEach(manualPoint => {
             const distance = parseFloat(manualPoint.distance);
             if (!isNaN(distance)) {
-                //✅ newPointsData の中から 「エイドの距離に最も近いポイント」 を探す
-                //✅ minDifference を使い、距離の差が最も小さい (closestIndex) を見つける 
-                //✅ もし複数候補がある場合、より「先の距離」のポイントを選択する
                 let closestIndex = -1;
                 let minDifference = Infinity;
 
@@ -402,10 +384,6 @@ function App() {
                     }
                 });
 
-                //✅ closestIndex にエイド情報を設定する 
-                //✅ 区分 と 区分名称 にエイド名を適用 
-                //✅ restTime と gateTime に休憩時間と関門時間を適用
-                //✅ リザルトテーブルに正しく反映される
                 if (closestIndex !== -1) {
                     newPointsData[closestIndex].区分 = manualPoint.type;
                     newPointsData[closestIndex].区分名称 = manualPoint.name;
@@ -416,24 +394,24 @@ function App() {
             }
         });
 
-        //✅ 最初のポイントを START (スタート地点) にする
-        //✅ 最後のポイントを FINISH (ゴール地点) にする
         if (newPointsData.length > 0) {
             newPointsData[0].区分 = 'START';
             if (newPointsData.length > 1) {
                 newPointsData[newPointsData.length - 1].区分 = 'FINISH';
             }
         }
-
-        //✅ 更新された pointsData を返し、次の処理 (handleSimulate) で使用できるようにする！
         return newPointsData;
     }, []);
 
+
     const handleApplyManualPoints = useCallback(() => {
+console.log("handleApplyManualPoints() が実行された");
      if (!gpxFileName) {
       alert("GPXファイルが読み込まれていません。");
       return;
      }
+console.log("gpxFileName =", gpxFileName);
+console.log("適用する手動ポイント:", draftManualPoints);
 
      saveManualPoints(gpxFileName, draftManualPoints);
      setManualPoints(draftManualPoints.map(p => ({ ...p })));
@@ -442,6 +420,12 @@ function App() {
      setPointsData(prevPointsData => applyManualPointsToPointsData(prevPointsData, draftManualPoints));
 
     }, [gpxFileName, draftManualPoints, saveManualPoints, applyManualPointsToPointsData]);
+
+//debug
+useEffect(() => {
+    console.log("manualPointsApplied の変更を検出: 現在 =", manualPointsApplied);
+}, [manualPointsApplied]);
+//
 
     const updatedPointsDataMemo = useMemo(() => {
         return pointsData.map(point => ({ ...point }));
@@ -512,6 +496,11 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
 }, []);
 
     const handleSimulate = useCallback(() => {
+console.log("シミュレーション開始: manualPointsApplied =", manualPointsApplied);
+if (!manualPointsApplied) {
+    console.warn("⚠️ 手動ポイントが適用されていない可能性があります！");
+}
+
 // ★ シミュレーション開始前に適用処理を実行 ★
         const pointsWithManual = applyManualPointsToPointsData(updatedPointsDataMemo, draftManualPoints);
         setPointsData(pointsWithManual);
@@ -683,7 +672,7 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
         setCumulativeDistancesForGraph(newCumulativeDistances);
         setSimulationResult(newResults);
         setTableData(newTableData.filter(item => item.区分 !== '')); // 区分が空白でないもののみ表示
-//        setManualPointsApplied(false); // ★ シミュレーション後にフラグをリセット ★
+        setManualPointsApplied(false); // ★ シミュレーション後にフラグをリセット ★
     }, [startTime, calculatedAveragePace, updatedPointsDataMemo, manualPoints, setCumulativeDistancesForGraph, setSimulationResult,
         setTableData, applyManualPointsToPointsData, pointsData, itraIndex, calculatePaceWithITRA, setIsApplyButtonFlashing ]);
 
@@ -697,7 +686,6 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                 <h1>
                     トレイルランニングシミュレータ <span className="app-version">R{APP_VERSION}</span>
                 </h1>
-                <HelpModal />
             </header>
             <main>
                 {feedbackMessage && <div className="feedback-message">{feedbackMessage}</div>}
@@ -709,18 +697,13 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                     </div>
                 )}
                 <div>
-                    <h2>
-                        エイド情報入力
-                        <Tooltip text={"エイドの情報や、到着時間を知りたいポイントを入力します。\n距離と区分を入力すれば、結果を表示します。"} />
-                    </h2>
+                    <h2>エイド情報入力</h2>
                     {draftManualPoints.map((point, index) => (
                         <div key={point.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', justifyContent: 'center' }}>
                             {/* ★ 追加ボタン ★ */}
                             <button type="button" onClick={() => handleAddManualPointAt(index)} style={{ marginLeft: '5px' }}>＋</button>
                             <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
-                                <label style={{ marginRight: '5px' }}>
-                                    距離 (km):
-                                </label>
+                                <label style={{ marginRight: '5px' }}>距離 (km):</label>
                                 <input
                                     type="number"
                                     value={point.distance}
@@ -730,9 +713,7 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                                 />
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
-                                <label style={{ marginRight: '5px' }}>
-                                    区分:
-                                </label>
+                                <label style={{ marginRight: '5px' }}>区分:</label>
                                 <input
                                     type="text"
                                     value={point.type}
@@ -742,9 +723,7 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                                 />
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
-                                <label style={{ marginRight: '5px' }}>
-                                    区分名:
-                                </label>
+                                <label style={{ marginRight: '5px' }}>区分名:</label>
                                 <input
                                     type="text"
                                     value={point.name}
@@ -780,10 +759,7 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                             )}
                         </div>
                     ))}
-                    <button type="button" onClick={handleApplyManualPoints} disabled={!gpxFileLoaded}>
-                        エイド情報を保存
-                        <Tooltip text={"保存すると、次回同じ名前のGPXファイルをインポートすると自動的にエイド情報も読み込みます。\n"} />
-                    </button>
+                    <button type="button" onClick={handleApplyManualPoints} disabled={!gpxFileLoaded}>エイド情報を保存</button>
                     {!gpxFileLoaded && <p className="warning-message">GPXファイルを読み込んでから適用してください。</p>}
                 </div>
                 <PaceInput

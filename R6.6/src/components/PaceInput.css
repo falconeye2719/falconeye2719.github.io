@@ -1,0 +1,68 @@
+.flashing-button {
+    animation: blinker 1s step-end infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* PaceInput.css */
+
+/* 各入力グループに共通の下マージンを設定 */
+.input-group {
+    margin-bottom: 0px; /* ここを調整して、各入力ブロック間の余白を制御します */
+}
+
+/* シミュレーション情報入力のタイトル h2 の下マージン */
+h2 {
+    margin-top: 0;
+    margin-bottom: 10px; /* h2 の下の余白を調整 */
+}
+
+.time-inputs-container {
+    display: flex;
+    gap: 5px; /* アイテム間の水平方向の余白 */
+    margin-bottom: 0px; /* このコンテナの下側のマージン */
+    flex-wrap: wrap;
+    align-items: center; /* 垂直方向の配置を上揃えにする */
+    justify-content: center;
+}
+
+.time-inputs-container > div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 0px; /* ここを0にすると、このdiv自体の下マージンがなくなります */
+}
+
+.time-inputs-container label {
+    margin-bottom: 0cm; /* ラベルと入力欄の間の余白を調整 */
+    /*font-weight: bold;*/
+    white-space: nowrap; /* ラベルが折り返さないようにする */
+}
+
+/* ITRA パフォーマンスインデックス入力欄のスタイル */
+#itraIndex { /* idで直接指定 */
+    font-size: 1.0rem; /* 他の入力欄と同じサイズに設定 */
+    width: 80px; /* 必要に応じて幅も調整 */
+    padding: 1px 1px; /* 他の入力欄と同じパディング */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    /* font-family は App.css で input 全体に inherit を適用していれば継承されます */
+    /* もし継承されない場合は、font-family: inherit; をここに追加してください */
+}
+
+.time-inputs-container input[type="time"],
+#flatPaceInput {
+    width: 85px; /* 必要に応じて調整 */
+    padding: 1px 1px; /* 上下のパディングを減らすことで縦幅を調整 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1.0rem;
+    height: auto; /* 高さの自動調整を許可 */
+    font-family: inherit;
+}

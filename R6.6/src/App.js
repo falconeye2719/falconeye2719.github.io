@@ -11,10 +11,7 @@ import './App.css';
 import { PuffLoader } from 'react-spinners';
 import { smoothElevation } from './utils/elevationUtils';
 
-import HelpModal from './components/HelpModal';
-import Tooltip from './components/Tooltip';
-
-const APP_VERSION = "6.7"; // 例: バージョン番号をここに記述
+const APP_VERSION = "6.6"; // 例: バージョン番号をここに記述
 
 const formatTime = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
@@ -697,7 +694,6 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                 <h1>
                     トレイルランニングシミュレータ <span className="app-version">R{APP_VERSION}</span>
                 </h1>
-                <HelpModal />
             </header>
             <main>
                 {feedbackMessage && <div className="feedback-message">{feedbackMessage}</div>}
@@ -709,18 +705,13 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                     </div>
                 )}
                 <div>
-                    <h2>
-                        エイド情報入力
-                        <Tooltip text={"エイドの情報や、到着時間を知りたいポイントを入力します。\n距離と区分を入力すれば、結果を表示します。"} />
-                    </h2>
+                    <h2>エイド情報入力</h2>
                     {draftManualPoints.map((point, index) => (
                         <div key={point.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', justifyContent: 'center' }}>
                             {/* ★ 追加ボタン ★ */}
                             <button type="button" onClick={() => handleAddManualPointAt(index)} style={{ marginLeft: '5px' }}>＋</button>
                             <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
-                                <label style={{ marginRight: '5px' }}>
-                                    距離 (km):
-                                </label>
+                                <label style={{ marginRight: '5px' }}>距離 (km):</label>
                                 <input
                                     type="number"
                                     value={point.distance}
@@ -730,9 +721,7 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                                 />
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
-                                <label style={{ marginRight: '5px' }}>
-                                    区分:
-                                </label>
+                                <label style={{ marginRight: '5px' }}>区分:</label>
                                 <input
                                     type="text"
                                     value={point.type}
@@ -742,9 +731,7 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                                 />
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
-                                <label style={{ marginRight: '5px' }}>
-                                    区分名:
-                                </label>
+                                <label style={{ marginRight: '5px' }}>区分名:</label>
                                 <input
                                     type="text"
                                     value={point.name}
@@ -780,10 +767,7 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                             )}
                         </div>
                     ))}
-                    <button type="button" onClick={handleApplyManualPoints} disabled={!gpxFileLoaded}>
-                        エイド情報を保存
-                        <Tooltip text={"保存すると、次回同じ名前のGPXファイルをインポートすると自動的にエイド情報も読み込みます。\n"} />
-                    </button>
+                    <button type="button" onClick={handleApplyManualPoints} disabled={!gpxFileLoaded}>エイド情報を保存</button>
                     {!gpxFileLoaded && <p className="warning-message">GPXファイルを読み込んでから適用してください。</p>}
                 </div>
                 <PaceInput

@@ -49,7 +49,7 @@ function App() {
     const [pointsData, setPointsData] = useState([]);
     const [startTime, setStartTime] = useState('');
 //    const [averagePace, setAveragePace] = useState('');
-    const [itraIndex, setItraIndex] = useState(''); // ★ ITRAパフォーマンスインデックスの state
+    const [itraIndex, setItraIndex] = useState(400); // ★ ITRAパフォーマンスインデックスの state
     const [simulationResult, setSimulationResult] = useState([]);
     const [cumulativeDistancesForGraph, setCumulativeDistancesForGraph] = useState([]);
     const [tableData, setTableData] = useState([]);
@@ -711,7 +711,7 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                 <div>
                     <h2>
                         エイド情報入力
-                        <Tooltip text={"エイドの情報や、到着時間を知りたいポイントを入力します。\n距離と区分を入力すれば、結果を表示します。"} />
+                        <Tooltip text={"エイドの情報や、到着時間を知りたいポイントの情報を入力します\n距離と区分を入力すれば、結果を表示します\n行の先頭にある＋ボタンを押すと、1行追加できます"} />
                     </h2>
                     {draftManualPoints.map((point, index) => (
                         <div key={point.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', justifyContent: 'center' }}>

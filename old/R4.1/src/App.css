@@ -1,0 +1,52 @@
+/* App.css */
+/* 既存のスタイルはそのまま */
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  margin-bottom: 20px;
+}
+
+main {
+  padding: 20px;
+}
+
+.feedback-message {
+  background-color: lightgreen;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.warning-message {
+  color: orange;
+  margin-top: 10px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.loading-cursor,
+.loading-cursor * {
+  cursor: wait !important;
+}
+
+/* ★ 追加するスタイル ★ */
+main > div > div label,
+main > div > div input,
+main > div > div button {
+  vertical-align: middle;
+}

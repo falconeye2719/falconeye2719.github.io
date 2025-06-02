@@ -1,0 +1,10 @@
+/* TimeGraph.css */
+.simulation-summary {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1em;
+}
+
+.simulation-summary p {
+    margin: 0;
+}

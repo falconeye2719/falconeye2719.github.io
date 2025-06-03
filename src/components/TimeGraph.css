@@ -8,3 +8,10 @@
 .simulation-summary p {
     margin: 0;
 }
+
+@media screen and (max-width: 768px) {
+  .graph-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+}

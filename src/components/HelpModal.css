@@ -88,3 +88,11 @@
 .modal-content button:hover {
   background-color: #1565c0;
 }
+
+@media screen and (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    padding: 16px;
+    font-size: 15px;
+  }
+}

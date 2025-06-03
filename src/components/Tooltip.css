@@ -33,3 +33,10 @@
 .tooltip-container:hover .tooltip-text {
   visibility: visible;
 }
+
+@media screen and (max-width: 768px) {
+  .tooltip-text {
+    font-size: 12px;
+    max-width: 90vw;
+  }
+}

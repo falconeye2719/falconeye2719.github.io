@@ -717,7 +717,17 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                         <Tooltip text={"エイドの情報や、到着時間を知りたいポイントの情報を入力します\n距離と区分を入力すれば、結果を表示します\n行の先頭にある＋ボタンを押すと、1行追加できます"} />
                     </h2>
                     {draftManualPoints.map((point, index) => (
-                        <div key={point.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', justifyContent: 'center' }}>
+                        <div 
+                            key={point.id} 
+                            className="manual-point-row"  // ← この行を追加
+                            style={{ 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                marginBottom: '10px', 
+                                justifyContent: 'center',
+                                flexWrap: 'wrap', // これも追加するとさらに良い（画面が狭いときに改行） 
+                            }}
+                        >
                             {/* ★ 追加ボタン ★ */}
                             <button type="button" onClick={() => handleAddManualPointAt(index)} style={{ marginLeft: '5px' }}>＋</button>
                             <div style={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>

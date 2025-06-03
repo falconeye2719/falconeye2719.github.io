@@ -24,13 +24,20 @@ input, select, textarea, button {
   font-size: calc(10px + 2vmin);
   color: white;
   margin-bottom: 20px;
+  /* position: relative; // 必要であれば残す */
 }
-.app-version {
-    font-size: 0.5em; /* 親要素（h1）のフォントサイズの70%に設定 */
-    color: #666; /* バージョン部分の色を少し薄くする（任意） */
-    /* もしタイトルと縦位置を細かく調整したい場合 */
-    /* position: relative; */
-    /* top: -0.2em; */
+
+/* App-header 内の h1 のスタイル */
+.App-header h1 {
+  margin: 0;
+}
+
+/* ★このセレクタを修正します★ */
+.App-header h1 .version-info { /* App.js で className="version-info" としているはず */
+  font-size: 0.5em; /* 親要素（h1）のフォントサイズの50%に設定 */
+  color: #bbb;    /* 薄い灰色系の色 */
+  margin-left: 0.5em; /* タイトルとの間に少しスペース */
+  white-space: nowrap; /* 改行しないように */
 }
 
 main {

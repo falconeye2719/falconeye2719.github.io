@@ -7,7 +7,9 @@ const HelpModal = () => {
 
   return (
     <>
-      <button className="help-button" onClick={() => setOpen(true)}>ヘルプ</button>
+      <button className="help-button" onClick={() => setOpen(true)}>
+        <span className="help-button-text">ヘルプ</span>
+      </button>
       {open && (
         <div className="modal-overlay" onClick={() => setOpen(false)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>

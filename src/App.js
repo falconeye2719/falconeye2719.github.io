@@ -14,7 +14,7 @@ import { smoothElevation } from './utils/elevationUtils';
 import HelpModal from './components/HelpModal';
 import Tooltip from './components/Tooltip';
 
-const APP_VERSION = "6.7"; // 例: バージョン番号をここに記述
+//const APP_VERSION = "6.7"; // 例: バージョン番号をここに記述
 
 const formatTime = (milliseconds) => {
     const totalSeconds = Math.floor(milliseconds / 1000);
@@ -695,7 +695,10 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
         <div className="App">
             <header className="App-header">
                 <h1>
-                    トレイルランニングシミュレータ <span className="app-version">R{APP_VERSION}</span>
+                    トレイルランニングシミュレータ{' '}
+                    <span className="version-info">
+                        R{process.env.REACT_APP_VERSION}
+                    </span>
                 </h1>
                 <HelpModal />
             </header>

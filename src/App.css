@@ -24,12 +24,14 @@ input, select, textarea, button {
   font-size: calc(10px + 2vmin);
   color: white;
   margin-bottom: 20px;
-  /* position: relative; // 必要であれば残す */
+  position: relative;
+  padding: 1rem;
 }
 
 /* App-header 内の h1 のスタイル */
 .App-header h1 {
   margin: 0;
+  margin-top: 32px; /* お好みで調整、例: 16px〜40px */
 }
 
 /* ★このセレクタを修正します★ */
@@ -135,7 +137,11 @@ input[type="time"] {
   .manual-point-row input,
   .manual-point-row button {
     width: 100%;
-    font-size: 16px;
+    font-size: 14px;
+    padding: 4px 6px;
+    height: 32px;
+    line-height: 1.2;
+    box-sizing: border-box;
   }
 
   .manual-point-row button {

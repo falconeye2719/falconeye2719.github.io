@@ -148,4 +148,20 @@ input[type="time"] {
     align-self: flex-end;
   }
 }
+/*R1.0.5 START*/
+@media screen and (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    width: 100vw;
+  }
 
+  #root, .App {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+/*R1.0.5 END*/

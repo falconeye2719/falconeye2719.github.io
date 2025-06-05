@@ -19,7 +19,7 @@
   background-color: black;
   color: #fff;
   text-align: left;
-  padding: 6px;
+  padding: 8px;
   border-radius: 4px;
   position: absolute;
   z-index: 1;
@@ -28,6 +28,7 @@
   transform: translateX(-50%);
   white-space: pre-line;
   font-size: 12px;
+  line-height: 1.5;
 }
 
 .tooltip-container:hover .tooltip-text {
@@ -35,8 +36,24 @@
 }
 
 @media screen and (max-width: 768px) {
+  .tooltip-container {
+    display: block;   /* ここを変更 */
+    width: 100%;      /* 幅いっぱい */
+  }
   .tooltip-text {
     font-size: 12px;
-    max-width: 90vw;
+    max-width: 280px;
+    width: auto;           /* 幅自動調整 */
+    white-space: normal;   /* 改行可能 */
+    word-break: break-word;
+    box-sizing: border-box;
+    left: 0;
+    transform: none;
+    text-align: left;
+    padding: 8px;
+    line-height: 1.5;
+    background-color: black;
+    color: white;
+    border-radius: 4px;
   }
 }

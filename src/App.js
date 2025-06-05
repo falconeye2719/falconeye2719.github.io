@@ -738,7 +738,7 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                                     type="number"
                                     value={point.distance}
                                     onChange={(e) => handleDraftManualPointChange(index, 'distance', e.target.value)}
-                                    style={{ width: '60px' }}
+                                    style={{ width: '50px' }}
                                     tabIndex={index + 1} // ★ 距離の tabindex ★
                                 />
                             </div>
@@ -750,7 +750,7 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                                     type="text"
                                     value={point.type}
                                     onChange={(e) => handleDraftManualPointChange(index, 'type', e.target.value)}
-                                    style={{ width: '100px' }}
+                                    style={{ width: '60px' }}
                                     tabIndex={(draftManualPoints.length * 1) + index + 1} // ★ 区分 の tabindex ★
                                 />
                             </div>
@@ -795,7 +795,7 @@ const calculatePaceWithITRA = useCallback((basePaceInSecondsPerKm, itraIndexValu
                     ))}
                     <button type="button" onClick={handleApplyManualPoints} disabled={!gpxFileLoaded}>
                         エイド情報を保存
-                        <Tooltip text={"保存すると、次回同じ名前のGPXファイルをインポートすると自動的にエイド情報も読み込みます。\n"} />
+                        <Tooltip text={"保存すると、次回同じ名前のGPXファイルをインポートすると自動的にエイド情報も読み込みます\n"} />
                     </button>
                     {!gpxFileLoaded && <p className="warning-message">GPXファイルを読み込んでから適用してください。</p>}
                 </div>

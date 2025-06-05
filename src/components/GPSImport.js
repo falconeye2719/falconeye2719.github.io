@@ -53,8 +53,8 @@ function GPSImport({ onDataImport, onFileSelected }) {
   return (
     <div style={gpsImportStyle}>
       <h2>
-        GPSデータインポート
-        <Tooltip text={"シミュレーションをするレースのGPXデータをインポートしてください\nレースのサイトで配布されるGPXファイルなどで構いません。"} />
+        GPXデータインポート
+        <Tooltip text={"シミュレーションをするレースのGPXデータをインポートしてください\nレースサイトで配布されるGPXファイルなど"} />
       </h2>
       <input type="file" accept=".gpx,.tcx,.csv,.txt" onChange={handleFileChange} />
       {/*selectedFile && (

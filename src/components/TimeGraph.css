@@ -9,6 +9,18 @@
     margin: 0;
 }
 
+/*R1.0.6 START*/
+.graph-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* スマホでのスムーズスクロール */
+}
+.graph-content {
+    min-width: 600px; /* グラフが潰れないように最低幅を設定 */
+    height: 300px;     /* 必要に応じて高さも固定 */
+}
+/*R1.0.6 eND*/
+
 @media screen and (max-width: 768px) {
   .graph-container {
     width: 100%;

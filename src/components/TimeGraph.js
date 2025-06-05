@@ -128,6 +128,8 @@ const TimeGraph = ({ results, pointsData, appliedManualPoints, elapsedTime }) =>
     }, [results, pointsData, highlightPointsData, finishPoint, finishResult]);
 
     const chartOptions = useMemo(() => ({
+        responsive: true,/*R1.0.6*/ // ← グラフがコンテナに追従してサイズ変更
+        maintainAspectRatio: false,/*R1.0.6*/ // ← aspectRatio を無視して高さをCSSで制御
         aspectRatio: 5, // ★ 縦横比を 1:5 に設定 ★
         scales: {
             x: {
@@ -253,7 +255,11 @@ const TimeGraph = ({ results, pointsData, appliedManualPoints, elapsedTime }) =>
               {elapsedTime !== undefined && <p style={{ margin: '0 3em 0 0' }}>総所要時間： {formatTime(elapsedTime)}</p>}
               {totalElevationGain > 0 && <p style={{ margin: 0 }}>累積標高 (+D)：{totalElevationGain.toFixed(0)} m</p>}
             </div>
-            <Line data={chartData} options={chartOptions} ref={chartRef} />
+            <div className="graph-container">
+                <div className="graph-content">
+                    <Line data={chartData} options={chartOptions} ref={chartRef} />
+                </div>
+            </div>
         </div>
     );
 };

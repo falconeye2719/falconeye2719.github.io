@@ -1,4 +1,5 @@
 import React from 'react';
+import './ResultTable.css';/*R1.0.7*/
 
 const containerStyle = {
   marginTop: '20px',
@@ -31,8 +32,8 @@ function ResultTable({ data}) {
   }
 
   return (
-    <div style={containerStyle}>
-      <table style={tableStyle}>
+    <div className="result-table-container">
+      <table className="result-table">
         <thead>
           <tr>
             <th style={stickyHeaderStyle}>区分</th>

@@ -1,7 +1,7 @@
 {
   "homepage": "https://falconeye2719.github.io",
   "name": "trail-run-simulator",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
